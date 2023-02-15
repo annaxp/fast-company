@@ -26,11 +26,15 @@ const Users = () => {
     "Оценка",
     " ",
   ];
-
+  //тут явно перестаралась)) и не учла key пока придусала заглушку
   const renderTableHeader = () => {
     return (
       tableHeader.length !== 0 &&
-      tableHeader.map((th) => <th scope="col">{th}</th>)
+      tableHeader.map((th) => (
+        <th key={"1" + th} scope="col">
+          {th}
+        </th>
+      ))
     );
   };
 
@@ -38,32 +42,27 @@ const Users = () => {
     return (
       users.length !== 0 &&
       users.map((user) => (
-        <>
-          <tr key={user._id}>
-            <th scope="row">{user.name}</th>
-            <td key={user.profession._id}>{user.profession.name}</td>
-            <td>
-              {user.qualities.map((qual) => (
-                <>
-                  <span key={qual._id} className={"badge m-2 bg-" + qual.color}>
-                    {" "}
-                    {qual.name}
-                  </span>
-                </>
-              ))}
-            </td>
-            <td>{user.completedMeetings}</td>
-            <td>{user.rate}</td>
-            <td>
-              <button
-                className="btn btn-danger btn-sm m-2"
-                onClick={() => handleDelete(user._id)}
-              >
-                delete
-              </button>
-            </td>
-          </tr>
-        </>
+        <tr key={user._id}>
+          <th scope="row">{user.name}</th>
+          <td key={user.profession._id}>{user.profession.name}</td>
+          <td>
+            {user.qualities.map((qual) => (
+              <span key={qual._id} className={"badge m-2 bg-" + qual.color}>
+                {qual.name}
+              </span>
+            ))}
+          </td>
+          <td>{user.completedMeetings}</td>
+          <td>{user.rate}</td>
+          <td>
+            <button
+              className="btn btn-danger btn-sm m-2"
+              onClick={() => handleDelete(user._id)}
+            >
+              delete
+            </button>
+          </td>
+        </tr>
       ))
     );
   };
